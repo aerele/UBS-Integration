@@ -1,0 +1,67 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-12-10 18:49:18.478560",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "summarise_payment_based_on",
+  "notify_party",
+  "column_break_hecu",
+  "default_email_format",
+  "submit_payment_entry"
+ ],
+ "fields": [
+  {
+   "fieldname": "summarise_payment_based_on",
+   "fieldtype": "Select",
+   "label": "Summarise Payment Based On",
+   "options": "Party\nVoucher"
+  },
+  {
+   "default": "0",
+   "fieldname": "notify_party",
+   "fieldtype": "Check",
+   "label": "Notify Party"
+  },
+  {
+   "fieldname": "column_break_hecu",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "default_email_format",
+   "fieldtype": "Link",
+   "label": "Default Email Format",
+   "options": "Print Format"
+  },
+  {
+   "default": "0",
+   "fieldname": "submit_payment_entry",
+   "fieldtype": "Check",
+   "label": "Submit Payment Entry"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2024-12-10 19:07:24.584830",
+ "modified_by": "Administrator",
+ "module": "UBS Integration",
+ "name": "Bank Integration Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
