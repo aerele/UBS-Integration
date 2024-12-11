@@ -46,6 +46,7 @@ app_license = "gpl-3.0"
 # doctype_js = {"doctype" : "public/js/doctype.js"}
 doctype_js = {
 	"Payment Request": "public/js/payment_request.js",
+    "Payment Order": "public/js/payment_order.js",
 }
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
@@ -133,8 +134,11 @@ doctype_js = {
 # Override standard doctype classes
 
 override_doctype_class = {
-    "Payment Request": "ubs_integration.overrides.payment_request.BankPaymentRequest"
+    "Payment Request": "ubs_integration.overrides.payment_request.BankPaymentRequest",
+    "Payment Order": "ubs_integration.overrides.payment_order.BankPaymentOrder"
 }
+
+accounting_dimension_doctypes = ["Payment Order Reference", "Payment Order Summary"]
 
 # Document Events
 # ---------------

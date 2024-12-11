@@ -36,6 +36,7 @@
   },
   {
    "default": "0",
+   "description": "Submit the payment entry while submitting the payment order.",
    "fieldname": "submit_payment_entry",
    "fieldtype": "Check",
    "label": "Submit Payment Entry"
@@ -44,7 +45,7 @@
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2024-12-10 19:07:24.584830",
+ "modified": "2024-12-11 10:07:54.549356",
  "modified_by": "Administrator",
  "module": "UBS Integration",
  "name": "Bank Integration Settings",

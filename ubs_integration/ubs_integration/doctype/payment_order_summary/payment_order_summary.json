@@ -65,7 +65,6 @@
    "columns": 1,
    "fieldname": "mode_of_transfer",
    "fieldtype": "Link",
-   "in_list_view": 1,
    "label": "Mode of Transfer",
    "options": "Mode of Transfer"
   },
@@ -171,7 +170,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-12-10 19:02:54.952796",
+ "modified": "2024-12-11 11:38:02.163534",
  "modified_by": "Administrator",
  "module": "UBS Integration",
  "name": "Payment Order Summary",
