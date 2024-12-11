@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Document xmlns="http://www.six-interbank-clearing.com/de/pain.001.001.03.ch.02.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.six-interbank-clearing.com/de/pain.001.001.03.ch.02.xsd pain.001.001.03.ch.02.xsd">
+    <CstmrCdtTrfInitn>
+        <GrpHdr>
+            <!-- Group Header containing information about the payment message -->
+            <MsgId>abcd1234efgh5678ijkl9012mnop3456</MsgId> <!-- Unique Message ID -->
+            <CreDtTm>2024-12-10T08:30:00+01:00</CreDtTm> <!-- Date and time the message was created -->
+            <NbOfTxs>2</NbOfTxs> <!-- Number of transactions included -->
+            <CtrlSum>5000.00</CtrlSum> <!-- Total amount of money involved in the transactions -->
+            <InitgPty>
+                <!-- Details about the initiating party (payer) -->
+                <Nm>Tech Innovators Ltd</Nm> <!-- Name of the company initiating the payment -->
+                <CtctDtls>
+                    <Nm>Digital Solutions Co.</Nm> <!-- Name of the contact person -->
+                    <Othr>2024.407</Othr> <!-- Version of the file or payment template -->
+                </CtctDtls>
+            </InitgPty>
+        </GrpHdr>
+
+        <PmtInf>
+            <!-- Payment Information related to the payment transactions -->
+            <PmtInfId>345c9a34a0f64cb7b96cbb3e22e3d24f</PmtInfId> <!-- Unique ID for the payment information -->
+            <PmtMtd>TRF</PmtMtd> <!-- Payment method, "TRF" means Transfer -->
+            <BtchBookg>false</BtchBookg> <!-- Indicates that the transactions are not batched together -->
+            <NbOfTxs>2</NbOfTxs> <!-- Number of transactions in this section -->
+            <PmtTpInf>
+                <CtgyPurp>
+                    <Cd>SUPP</Cd> <!-- Payment purpose code: "SUPP" means supplier payment -->
+                </CtgyPurp>
+            </PmtTpInf>
+            <ReqdExctnDt>2024-12-11</ReqdExctnDt> <!-- Requested execution date -->
+            <Dbtr>
+                <!-- Debtor (payer) details -->
+                <Nm>Tech Innovators Ltd</Nm> <!-- Name of the debtor (payer) -->
+            </Dbtr>
+
+            <DbtrAcct>
+                <!-- Debtor’s bank account details -->
+                <Id>
+                    <IBAN>CH1234567890123456789</IBAN> <!-- IBAN of the payer -->
+                </Id>
+                <Tp>
+                    <Prtry>CND</Prtry> <!-- Account type (CND = Current Account) -->
+                </Tp>
+            </DbtrAcct>
+
+            <DbtrAgt>
+                <!-- Debtor’s bank details -->
+                <FinInstnId>
+                    <BIC>UBSWCHZH80A</BIC> <!-- BIC code for the debtor’s bank -->
+                </FinInstnId>
+            </DbtrAgt>
+
+            <CdtTrfTxInf>
+                <!-- Credit Transfer Transaction Information -->
+                <PmtId>
+                    <InstrId>12ab345cd678ef9012345678gh901234</InstrId> <!-- Instruction ID -->
+                    <EndToEndId>9876abcd1234efgh5678ijkl9012mnop</EndToEndId> <!-- End-to-end reference -->
+                </PmtId>
+                <Amt>
+                    <InstdAmt Ccy="USD">2500.00</InstdAmt> <!-- Amount to be transferred (USD) -->
+                </Amt>
+                <ChrgBr>SHAR</ChrgBr> <!-- Charge bearer: SHAR means the charges are shared -->
+                <CdtrAgt>
+                    <!-- Creditor’s bank details -->
+                    <FinInstnId>
+                        <BIC>SPUEDEFFXXX</BIC> <!-- BIC code of the creditor’s bank -->
+                    </FinInstnId>
+                </CdtrAgt>
+                <Cdtr>
+                    <!-- Creditor (payee) details -->
+                    <Nm>Global Supplier Inc.</Nm> <!-- Name of the payee -->
+                    <PstlAdr>
+                        <StrtNm>Greenway Avenue</StrtNm> <!-- Street name -->
+                        <BldgNb>45B</BldgNb> <!-- Building number -->
+                        <PstCd>10001</PstCd> <!-- Postal code -->
+                        <TwnNm>Zurich</TwnNm> <!-- City/Town -->
+                        <Ctry>CH</Ctry> <!-- Country (Switzerland) -->
+                    </PstlAdr>
+                </Cdtr>
+
+                <CdtrAcct>
+                    <!-- Creditor’s bank account details -->
+                    <Id>
+                        <IBAN>CH9876543210987654321</IBAN> <!-- IBAN of the creditor -->
+                    </Id>
+                </CdtrAcct>
+
+                <RmtInf>
+                    <!-- Remittance Information -->
+                    <Ustrd>Payment for Invoice #12345</Ustrd> <!-- Description of the payment -->
+                </RmtInf>
+            </CdtTrfTxInf>
+
+            <CdtTrfTxInf>
+                <!-- Another Credit Transfer Transaction Information -->
+                <PmtId>
+                    <InstrId>34dc567ef890gh12345ij6789kl01234</InstrId> <!-- Instruction ID -->
+                    <EndToEndId>5678gh1234abcd5678ijkl9012mnop</EndToEndId> <!-- End-to-end reference -->
+                </PmtId>
+                <Amt>
+                    <InstdAmt Ccy="USD">2500.00</InstdAmt> <!-- Amount to be transferred (USD) -->
+                </Amt>
+                <ChrgBr>SHAR</ChrgBr> <!-- Charge bearer: SHAR means the charges are shared -->
+                <CdtrAgt>
+                    <!-- Creditor’s bank details -->
+                    <FinInstnId>
+                        <BIC>SPUEDEFFXXX</BIC> <!-- BIC code of the creditor’s bank -->
+                    </FinInstnId>
+                </CdtrAgt>
+                <Cdtr>
+                    <!-- Creditor (payee) details -->
+                    <Nm>Global Supplier Inc.</Nm> <!-- Name of the payee -->
+                    <PstlAdr>
+                        <StrtNm>Greenway Avenue</StrtNm> <!-- Street name -->
+                        <BldgNb>45B</BldgNb> <!-- Building number -->
+                        <PstCd>10001</PstCd> <!-- Postal code -->
+                        <TwnNm>Zurich</TwnNm> <!-- City/Town -->
+                        <Ctry>CH</Ctry> <!-- Country (Switzerland) -->
+                    </PstlAdr>
+                </Cdtr>
+
+                <CdtrAcct>
+                    <!-- Creditor’s bank account details -->
+                    <Id>
+                        <IBAN>CH9876543210987654321</IBAN> <!-- IBAN of the creditor -->
+                    </Id>
+                </CdtrAcct>
+
+                <RmtInf>
+                    <!-- Remittance Information -->
+                    <Ustrd>Payment for Invoice #67890</Ustrd> <!-- Description of the payment -->
+                </RmtInf>
+            </CdtTrfTxInf>
+        </PmtInf>
+    </CstmrCdtTrfInitn>
+</Document>
