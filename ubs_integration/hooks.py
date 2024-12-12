@@ -45,7 +45,7 @@ app_license = "gpl-3.0"
 # include js in doctype views
 # doctype_js = {"doctype" : "public/js/doctype.js"}
 doctype_js = {
-	"Payment Request": "public/js/payment_request.js",
+    "Payment Request": "public/js/payment_request.js",
     "Payment Order": "public/js/payment_order.js",
 }
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
@@ -87,7 +87,9 @@ doctype_js = {
 # ------------
 
 # before_install = "ubs_integration.install.before_install"
-# after_install = "ubs_integration.install.after_install"
+after_install = "ubs_integration.setup.install.after_install"
+before_uninstall = "ubs_integration.setup.install.before_uninstall"
+
 
 # Uninstallation
 # ------------
@@ -135,7 +137,7 @@ doctype_js = {
 
 override_doctype_class = {
     "Payment Request": "ubs_integration.overrides.payment_request.BankPaymentRequest",
-    "Payment Order": "ubs_integration.overrides.payment_order.BankPaymentOrder"
+    "Payment Order": "ubs_integration.overrides.payment_order.BankPaymentOrder",
 }
 
 accounting_dimension_doctypes = ["Payment Order Reference", "Payment Order Summary"]
