@@ -13,7 +13,6 @@
   "mode_of_transfer",
   "payment_status",
   "message",
-  "reference_number",
   "bank_account",
   "accounting_section",
   "account",
@@ -25,7 +24,10 @@
   "project",
   "payment_initiated",
   "payment_date",
-  "remarks"
+  "remarks",
+  "section_break_penf",
+  "payment_entry",
+  "reference_number"
  ],
  "fields": [
   {
@@ -147,12 +149,14 @@
    "default": "0",
    "fieldname": "payment_initiated",
    "fieldtype": "Check",
-   "label": "Payment Initiated"
+   "label": "Payment Initiated",
+   "read_only": 1
   },
   {
    "fieldname": "payment_date",
    "fieldtype": "Date",
-   "label": "Payment Date"
+   "label": "Payment Date",
+   "read_only": 1
   },
   {
    "fieldname": "reference_name",
@@ -165,12 +169,24 @@
    "fieldtype": "Small Text",
    "label": "Remarks",
    "max_height": "50px"
+  },
+  {
+   "fieldname": "section_break_penf",
+   "fieldtype": "Section Break",
+   "label": "References"
+  },
+  {
+   "fieldname": "payment_entry",
+   "fieldtype": "Link",
+   "label": "Payment Entry",
+   "options": "Payment Entry",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-12-11 11:38:02.163534",
+ "modified": "2024-12-12 13:30:43.201076",
  "modified_by": "Administrator",
  "module": "UBS Integration",
  "name": "Payment Order Summary",

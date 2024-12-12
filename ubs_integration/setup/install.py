@@ -64,6 +64,7 @@ def create_payment_request_tax_fields():
 				"label": "Net Total",
 				"fieldname": "net_total",
 				"fieldtype": "Currency",
+				"reqd": 1,
 				"insert_after": "transaction_details",
 			},
 			{
@@ -131,6 +132,7 @@ def delete_custom_fields():
 			"is_party_wise",
 			"summary",
 			"total",
+			"status",
 		],
 		"Payment Order Reference": [
 			"party_type",
@@ -158,7 +160,15 @@ properties = [
 		"property": "read_only",
 		"property_type": "Check",
 		"value": 1,
-	}
+	},
+	{
+		"doctype_or_field": "DocField",
+		"doctype": "Payment Request",
+		"fieldname": "grand_total",
+		"property": "reqd",
+		"property_type": "Check",
+		"value": 0,
+	},
 ]
 
 
@@ -212,12 +222,22 @@ def create_payment_custom_fields_in_payment_order():
 				"fieldtype": "Table",
 				"options": "Payment Order Summary",
 				"insert_after": "is_party_wise",
+				"no_copy": 1,
 			},
 			{
 				"label": "Total",
 				"fieldname": "total",
 				"fieldtype": "Currency",
 				"insert_after": "summary",
+			},
+			{
+				"label": "Status",
+				"fieldname": "status",
+				"fieldtype": "Select",
+				"options": "\nPending\nPending Approval\nPartially Approved\nApproved\nPartially Initiated\nInitiated\nRejected\nFailed",
+				"read_only": 1,
+				"hidden": 1,
+				"insert_after": "posting_date",
 			},
 		],
 		"Payment Order Reference": [
