@@ -156,6 +156,12 @@ frappe.ui.form.on("Payment Order", {
 			  columns: 2,
 			  in_list_view: 1,
 			},
+			{
+				label: __("Payment Entry"),
+				fieldname: "payment_entry",
+				fieldtype: "Data",
+				hidden: 1,
+			  },
 		  ],
 		},
 		{
@@ -196,6 +202,7 @@ frappe.ui.form.on("Payment Order", {
 		  party_type: d.party_type,
 		  party: d.party,
 		  amount: d.amount,
+		  payment_entry: d.payment_entry
 		});
 	  }
 	});

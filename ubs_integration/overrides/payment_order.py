@@ -20,7 +20,7 @@ class BankPaymentOrder(PaymentOrder):
 			"Payroll Entry",
 			"Journal Entry",
 		]:
-			make_payment_entries(self.name)
+			make_payment_entries(self)
 			frappe.db.set_value("Payment Order", self.name, "status", "Pending")
 
 			for ref in self.references:
@@ -340,6 +340,15 @@ def update_payment_status(data):
 						"payment_initiated": 1,
 					},
 				)
+				if d.payment_entry:
+					frappe.db.set_value(
+						"Payment Entry",
+						d.payment_entry,
+						{
+							"reference_no": d.reference_number,
+							"reference_date": d.payment_date
+						},
+					)
 				success_count += 1
 			elif d.status == "Failed":
 				frappe.db.set_value(
@@ -347,14 +356,21 @@ def update_payment_status(data):
 					d.row_name,
 					{"payment_status": "Failed", "payment_initiated": 1},
 				)
+
+				if d.payment_entry:
+					payment_entry_doc = frappe.get_doc("Payment Entry", d.payment_entry)
+					if payment_entry_doc.docstatus == 1:
+						payment_entry_doc.cancel()
+
+				process_payment_requests(d.row_name)
+
 				success_count += 1
 	if success_count:
 		frappe.msgprint(_(f"{success_count} payment(s) updated"))
 
 
 @frappe.whitelist()
-def make_payment_entries(docname):
-	payment_order_doc = frappe.get_doc("Payment Order", docname)
+def make_payment_entries(payment_order_doc):
 	"""create entry"""
 	frappe.flags.ignore_account_permission = True
 
@@ -572,7 +588,8 @@ def make_payment_entries(docname):
 		pe.insert(ignore_permissions=True, ignore_mandatory=True)
 		if frappe.get_single("Bank Integration Settings").submit_payment_entry:
 			pe.submit()
-		frappe.db.set_value("Payment Order Summary", row.name, "payment_entry", pe.name)
+
+		row.db_set("payment_entry", pe.name)
 
 
 def group_by_invoices(self):
@@ -586,3 +603,31 @@ def group_by_invoices(self):
 				grouped_references[key].allocated_amount += ref.allocated_amount
 
 		self.references = list(grouped_references.values())
+
+def process_payment_requests(payment_order_summary):
+	pos = frappe.get_doc("Payment Order Summary", payment_order_summary)
+	payment_order_doc = frappe.get_doc("Payment Order", pos.parent)
+
+	key = (
+		pos.party_type, pos.party, pos.bank_account, pos.account, 
+		pos.cost_center, pos.project, pos.tax_withholding_category, 
+		pos.reference_doctype
+	)
+
+	failed_prs = []
+	for ref in payment_order_doc.references:
+		ref_key = (
+			ref.party_type, ref.party, ref.bank_account, ref.account,
+			ref.cost_center, ref.project, ref.tax_withholding_category, 
+			ref.reference_doctype
+		)
+
+		if key == ref_key:
+			failed_prs.append(ref.payment_request)
+	
+	for pr in failed_prs:
+		pr_doc = frappe.get_doc("Payment Request", pr)
+		if pr_doc.docstatus == 1:
+			pr_doc.check_if_payment_entry_exists()
+			pr_doc.set_as_cancelled()
+			pr_doc.db_set("docstatus", 2)

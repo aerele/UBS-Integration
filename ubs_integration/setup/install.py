@@ -236,7 +236,6 @@ def create_payment_custom_fields_in_payment_order():
 				"fieldtype": "Select",
 				"options": "\nPending\nPending Approval\nPartially Approved\nApproved\nPartially Initiated\nInitiated\nRejected\nFailed",
 				"read_only": 1,
-				"hidden": 1,
 				"insert_after": "posting_date",
 			},
 		],

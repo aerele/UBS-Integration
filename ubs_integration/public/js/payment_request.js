@@ -13,6 +13,21 @@ frappe.ui.form.on("Payment Request", {
 		},
 	  };
 	});
+	frm.set_query("cost_center", function (doc) {
+		return {
+		  filters: {
+			company: doc.company,
+			is_group: 0,
+		  },
+		};
+	  });
+	  frm.set_query("project", function (doc) {
+		return {
+		  filters: {
+			company: doc.company
+		  },
+		};
+	  });
   },
   validate(frm) {
 	if (!frm.doc.net_total) {
