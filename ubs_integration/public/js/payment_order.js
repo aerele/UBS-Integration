@@ -101,6 +101,12 @@ frappe.ui.form.on("Payment Order", {
 			  read_only: 1,
 			},
 			{
+				label: __("payment_order"),
+				fieldname: "payment_order",
+				fieldtype: "data",
+				hidden: 1
+			  },
+			{
 			  label: __("Party Type"),
 			  fieldname: "party_type",
 			  fieldtype: "Link",
@@ -197,6 +203,7 @@ frappe.ui.form.on("Payment Order", {
 	  if (["Pending", "Initiated"].includes(d.payment_status)) {
 		row += 1;
 		dialog.fields_dict.summary.df.data.push({
+		  payment_order: frm.doc.name,
 		  row: row,
 		  row_name: d.name,
 		  party_type: d.party_type,

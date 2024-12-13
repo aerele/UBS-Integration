@@ -20,7 +20,7 @@ class BankPaymentOrder(PaymentOrder):
 			"Payroll Entry",
 			"Journal Entry",
 		]:
-			make_payment_entries(self)
+			# make_payment_entries(self)
 			frappe.db.set_value("Payment Order", self.name, "status", "Pending")
 
 			for ref in self.references:
@@ -349,6 +349,10 @@ def update_payment_status(data):
 							"reference_date": d.payment_date
 						},
 					)
+				else:
+					payment_order = frappe.get_doc("Payment Order", d.payment_order)
+					make_payment_entries(payment_order, d)
+
 				success_count += 1
 			elif d.status == "Failed":
 				frappe.db.set_value(
@@ -370,11 +374,16 @@ def update_payment_status(data):
 
 
 @frappe.whitelist()
-def make_payment_entries(payment_order_doc):
+def make_payment_entries(payment_order_doc, summary_doc: dict | str = None):
 	"""create entry"""
+	summary_doc = parse_json(summary_doc or {})
+
 	frappe.flags.ignore_account_permission = True
 
 	for row in payment_order_doc.summary:
+		if summary_doc and summary_doc.row_name != row.name:
+			continue
+
 		pe = frappe.new_doc("Payment Entry")
 		pe.payment_type = "Pay"
 		pe.company = payment_order_doc.company
@@ -574,17 +583,19 @@ def make_payment_entries(payment_order_doc):
 
 		pe.update(
 			{
-				"reference_no": payment_order_doc.name,
-				"reference_date": getdate(),
+				"reference_no": summary_doc.reference_number or payment_order_doc.name,
+				"reference_date": summary_doc.payment_date or getdate(),
 				"remarks": "Bank Payment Entry from Payment Order - {0}".format(
 					payment_order_doc.name
 				),
 			}
 		)
+
 		pe.setup_party_account_field()
 		pe.set_missing_values()
 		pe.validate()
 		group_by_invoices(pe)
+
 		pe.insert(ignore_permissions=True, ignore_mandatory=True)
 		if frappe.get_single("Bank Integration Settings").submit_payment_entry:
 			pe.submit()

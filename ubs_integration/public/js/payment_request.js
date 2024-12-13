@@ -21,13 +21,18 @@ frappe.ui.form.on("Payment Request", {
 		  },
 		};
 	  });
-	  frm.set_query("project", function (doc) {
+	frm.set_query("project", function (doc) {
 		return {
-		  filters: {
+			filters: {
 			company: doc.company
-		  },
+			},
 		};
-	  });
+	});
+	if(frm.doc.docstatus == 1){
+		cur_frm.add_custom_button('Goto Payment Order', function(){
+			frappe.set_route('List', 'Payment Order')
+		})
+	}
   },
   validate(frm) {
 	if (!frm.doc.net_total) {
