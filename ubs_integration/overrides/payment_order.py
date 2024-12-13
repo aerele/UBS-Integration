@@ -277,15 +277,15 @@ class BankPaymentOrder(PaymentOrder):
 			# party_bank
 			p_bank = frappe.get_doc("Bank Account", data.bank_account)
 
-			address_name = frappe.get_doc(
+			address_name = frappe.db.get_value(
 				"Dynamic Link",
 				{"link_doctype": "Bank Account", "link_name": data.bank_account},
-				"name",
+				"parent",
 			)
 			if not address_name:
 				frappe.throw(
 					_(
-						f"Address Not found for given bank account({bold(data.bank_account)})"
+						f"Address Not found for given bank account({bold(data.bank_account)}) at <b>#Row {data.idx}</b>"
 					)
 				)
 
