@@ -12,6 +12,7 @@ from erpnext.accounts.utils import get_account_currency
 from frappe import _, bold, parse_json
 from frappe.utils import cstr, getdate
 
+from xml.dom.minidom import parseString
 
 class BankPaymentOrder(PaymentOrder):
 	def on_submit(self):
@@ -163,7 +164,7 @@ class BankPaymentOrder(PaymentOrder):
 				"attached_to_doctype": self.doctype,
 				"attached_to_name": self.name,
 				"content": order_xml,
-				"is_private": False,
+				"is_private": True,
 			}
 		)
 		_file.save(ignore_permissions=True)
@@ -206,10 +207,11 @@ class BankPaymentOrder(PaymentOrder):
 		}
 
 		root = dict_to_xml("Document", json_data, namespaces)
+		xml_string = ET.tostring(root, short_empty_elements=False)
 
-		return ET.tostring(root, encoding="utf-8", short_empty_elements=False).decode(
-			"utf-8"
-		)
+		indent_space = frappe.get_single("Bank Integration Settings").indent_space or 4
+
+		return parseString(xml_string).toprettyxml(indent=" " * indent_space)
 
 	def get_id(self, length, text=""):
 		text = "".join(re.findall(r"[0-9a-zA-Z]", text))

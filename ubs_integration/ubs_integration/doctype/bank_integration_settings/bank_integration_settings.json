@@ -7,6 +7,7 @@
  "field_order": [
   "summarise_payment_based_on",
   "notify_party",
+  "indent_space",
   "column_break_hecu",
   "default_email_format",
   "submit_payment_entry"
@@ -22,6 +23,7 @@
    "default": "0",
    "fieldname": "notify_party",
    "fieldtype": "Check",
+   "hidden": 1,
    "label": "Notify Party"
   },
   {
@@ -40,12 +42,19 @@
    "fieldname": "submit_payment_entry",
    "fieldtype": "Check",
    "label": "Submit Payment Entry"
+  },
+  {
+   "default": "4",
+   "fieldname": "indent_space",
+   "fieldtype": "Int",
+   "label": "Indent Space",
+   "length": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2024-12-11 10:07:54.549356",
+ "modified": "2024-12-14 12:53:34.562316",
  "modified_by": "Administrator",
  "module": "UBS Integration",
  "name": "Bank Integration Settings",
